@@ -2,35 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LazyEats Design System - Red/White Theme with Rounded Cards */
+/* LazyEats Premium Design System */
 
 @layer base {
   :root {
     /* Main Colors */
-    --background: 0 0% 97%;
-    --foreground: 0 0% 15%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
 
-    /* Card System */
+    /* Card System with Glassmorphism */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
-    --card-border: 0 0% 90%;
+    --card-foreground: 0 0% 8%;
+    --card-border: 0 0% 92%;
+    --card-glass: 0 0% 100% / 0.8;
 
-    /* LazyEats Brand Colors */
-    --primary: 4 90% 58%; /* LazyEats Red #e53935 */
+    /* LazyEats Premium Brand Colors */
+    --primary: 4 90% 58%; /* Base Red */
+    --primary-gradient-start: 4 90% 58%; /* #e53935 */
+    --primary-gradient-end: 348 100% 59%; /* #ff1744 */
     --primary-foreground: 0 0% 100%;
     --primary-hover: 4 85% 55%;
+    --primary-glow: 4 90% 58% / 0.3;
 
-    /* Secondary Colors */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 20%;
+    /* Secondary & Accent */
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 15%;
+    --accent-gold: 45 100% 51%; /* Golden Yellow #FFC107 */
+    --accent-gold-foreground: 0 0% 8%;
 
     /* Muted Colors */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-
-    /* Accent Colors */
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 15%;
 
     /* Status Colors */
     --destructive: 0 84% 60%;
@@ -40,13 +42,24 @@
 
     /* Form Elements */
     --input: 0 0% 100%;
-    --input-border: 0 0% 85%;
+    --input-border: 0 0% 88%;
     --ring: 4 90% 58%;
 
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary-gradient-start)), hsl(var(--primary-gradient-end)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-gradient-start) / 0.9), hsl(var(--primary-gradient-end) / 0.9));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(0 0% 99%));
+
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow));
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
+    --shadow-hover: 0 10px 40px -10px hsl(0 0% 0% / 0.15);
+
     /* Border Radius */
-    --radius: 1rem;
-    --radius-lg: 1.5rem;
-    --radius-sm: 0.75rem;
+    --radius: 1.25rem;
+    --radius-lg: 2rem;
+    --radius-sm: 0.875rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -114,26 +127,101 @@
   }
 }
 
-/* LazyEats Custom Components */
+/* LazyEats Premium Components */
 @layer components {
+  /* Hero Section */
+  .hero-section {
+    @apply relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-background via-secondary to-muted overflow-hidden;
+  }
+  
+  .hero-content {
+    @apply text-center z-10 px-6 max-w-4xl mx-auto;
+  }
+
+  /* Premium Cards */
+  .premium-card {
+    @apply bg-card/80 backdrop-blur-sm rounded-radius-lg border border-card-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md rounded-radius-lg border border-white/20 shadow-[var(--shadow-elegant)];
+  }
+  
   .food-card {
-    @apply bg-card rounded-radius-lg border border-card-border shadow-sm hover:shadow-md transition-shadow;
+    @apply premium-card group cursor-pointer overflow-hidden;
   }
   
   .restaurant-card {
-    @apply bg-card rounded-radius-lg border border-card-border shadow-sm hover:shadow-md transition-all duration-200;
+    @apply premium-card group cursor-pointer hover:scale-[1.02] transition-all duration-300;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-gradient-to-r from-[hsl(var(--primary-gradient-start))] to-[hsl(var(--primary-gradient-end))] text-primary-foreground px-8 py-4 rounded-radius-lg font-semibold text-lg shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-glow)] hover:scale-105 transition-all duration-300;
   }
   
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-radius border border-card-border hover:bg-accent hover:border-primary/20 transition-all duration-300;
+  }
+
   .add-button {
-    @apply bg-primary text-primary-foreground px-4 py-2 rounded-radius text-sm font-medium hover:bg-primary-hover transition-colors;
+    @apply bg-gradient-to-r from-[hsl(var(--primary-gradient-start))] to-[hsl(var(--primary-gradient-end))] text-primary-foreground px-4 py-2 rounded-radius text-sm font-medium hover:scale-105 hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Navigation */
+  .navbar {
+    @apply fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-card-border z-50 transition-all duration-300;
   }
   
   .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground p-4 rounded-t-radius-lg shadow-lg;
+    @apply fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-card-border p-4 rounded-t-radius-lg shadow-[var(--shadow-elegant)] md:hidden;
+  }
+
+  /* Search */
+  .search-input {
+    @apply w-full px-6 py-4 bg-white border border-input-border rounded-radius-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-lg transition-all duration-300;
+  }
+
+  /* Animations */
+  .fade-in {
+    @apply animate-in fade-in-0 duration-500;
   }
   
-  .search-input {
-    @apply w-full px-4 py-3 bg-input border border-input-border rounded-radius-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  .slide-up {
+    @apply animate-in slide-in-from-bottom-4 duration-500;
+  }
+
+  /* Image Effects */
+  .image-zoom {
+    @apply transition-transform duration-500 group-hover:scale-110;
+  }
+
+  /* Grid Layouts */
+  .restaurant-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .food-carousel {
+    @apply flex space-x-6 overflow-x-auto pb-4 scrollbar-hide;
+  }
+
+  /* Typography */
+  .heading-hero {
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[hsl(var(--primary-gradient-start))] to-[hsl(var(--primary-gradient-end))] bg-clip-text text-transparent leading-tight;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-4xl font-bold text-foreground mb-8;
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
