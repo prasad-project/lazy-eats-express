@@ -2,41 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* LazyEats Design System - Red/White Theme with Rounded Cards */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Main Colors */
+    --background: 0 0% 97%;
+    --foreground: 0 0% 15%;
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 15%;
+    --card-border: 0 0% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* LazyEats Brand Colors */
+    --primary: 4 90% 58%; /* LazyEats Red #e53935 */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 4 85% 55%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Secondary Colors */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 20%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Muted Colors */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent Colors */
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 15%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 120 60% 50%;
+    --success-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Form Elements */
+    --input: 0 0% 100%;
+    --input-border: 0 0% 85%;
+    --ring: 4 90% 58%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    /* Border Radius */
+    --radius: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-sm: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +110,32 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
+
+/* LazyEats Custom Components */
+@layer components {
+  .food-card {
+    @apply bg-card rounded-radius-lg border border-card-border shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  .restaurant-card {
+    @apply bg-card rounded-radius-lg border border-card-border shadow-sm hover:shadow-md transition-all duration-200;
+  }
+  
+  .add-button {
+    @apply bg-primary text-primary-foreground px-4 py-2 rounded-radius text-sm font-medium hover:bg-primary-hover transition-colors;
+  }
+  
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground p-4 rounded-t-radius-lg shadow-lg;
+  }
+  
+  .search-input {
+    @apply w-full px-4 py-3 bg-input border border-input-border rounded-radius-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+}
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
